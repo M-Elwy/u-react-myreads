@@ -6,6 +6,7 @@ import BookShelf from './BookShelf'
 class MyReads extends Component {
   static propTypes = {
     shelfs: PropTypes.object.isRequired,
+    onMoveBook: PropTypes.func.isRequired
   }
   
   render() {
@@ -16,9 +17,9 @@ class MyReads extends Component {
             </div>
             <div className="list-books-content">
               <div>
-                <BookShelf title="Currently Reading" books={this.props.shelfs["currentlyReading"]} />
-                <BookShelf title="Want to Read" books={this.props.shelfs["wantToRead"]} />
-                <BookShelf title="Read" books={this.props.shelfs["read"]} />
+                <BookShelf title="Currently Reading" books={this.props.shelfs["currentlyReading"]} onMoveBook={this.props.onMoveBook} />
+                <BookShelf title="Want to Read" books={this.props.shelfs["wantToRead"]} onMoveBook={this.props.onMoveBook} />
+                <BookShelf title="Read" books={this.props.shelfs["read"]} onMoveBook={this.props.onMoveBook} />
               </div>
             </div>
             <div className="open-search">

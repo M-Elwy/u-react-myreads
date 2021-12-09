@@ -17,6 +17,17 @@ class BooksApp extends React.Component {
   }
 
   componentDidMount() {
+    this.getMyBooks();
+  }
+
+  getMyBooks = () => {
+    this.setState(() => ({
+      shelfs: {
+        "currentlyReading": [],
+        "wantToRead": [],
+        "read": []
+      }
+    }))
     BooksAPI.getAll()
     .then((books) => {
         this.setState(() =>({
@@ -40,6 +51,14 @@ class BooksApp extends React.Component {
     }))
   }
 
+  moveBook = (book, newShelf) => {
+    BooksAPI.update(book, newShelf)
+    .then((res) => {
+      this.getMyBooks()
+    })
+    
+  }
+
   search = (query) => {
     this.updateQuery(query)
     BooksAPI.search(query)
@@ -55,10 +74,10 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
         <Route path="/search" render={() => (
-        <SearchBooks books={this.state.books} query={query} onSearch={this.search}/>
+          <SearchBooks books={this.state.books} query={query} onSearch={this.search} onMoveBook={this.moveBook}/>
         )} />
         <Route exact path="/" render={() =>  (
-          <MyReads shelfs={this.state.shelfs} />
+          <MyReads shelfs={this.state.shelfs} onMoveBook={this.moveBook}/>
         )} />
       </div>
     )

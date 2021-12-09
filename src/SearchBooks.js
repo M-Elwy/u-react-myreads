@@ -7,7 +7,8 @@ class SearchBooks extends Component {
   static propTypes = {
     books: PropTypes.array.isRequired,
     query: PropTypes.string.isRequired,
-    onSearch: PropTypes.func.isRequired
+    onSearch: PropTypes.func.isRequired,
+    onMoveBook: PropTypes.func.isRequired
   }
   
   render() {
@@ -34,7 +35,7 @@ class SearchBooks extends Component {
               </div>
             </div>
             <div className="search-books-results">
-              <ListBooks books={this.props.books}/>
+              <ListBooks books={this.props.books} onMoveBook={this.props.onMoveBook} />
             </div>
           </div>
     )
