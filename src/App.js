@@ -7,7 +7,8 @@ import MyReads from './MyReads'
 
 class BooksApp extends React.Component {
   state = {
-    books : [],
+    myBooks : [],
+    allBooks: [],
     query: '',
     shelfs: {
       "currentlyReading": [],
@@ -31,7 +32,7 @@ class BooksApp extends React.Component {
     BooksAPI.getAll()
     .then((books) => {
         this.setState(() =>({
-          books
+          myBooks: books
         }))
         
         books.map((book) => {
@@ -63,8 +64,12 @@ class BooksApp extends React.Component {
     this.updateQuery(query)
     BooksAPI.search(query)
     .then((books) => {
-      books && books.length > 0 && this.setState(() =>({
-          books
+      books && books.length > 0 ?
+       this.setState(() =>({
+        allBooks : books
+        }))
+        :this.setState(() =>({
+          allBooks: []
         }))
       })
   }
@@ -74,7 +79,7 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
         <Route path="/search" render={() => (
-          <SearchBooks books={this.state.books} query={query} onSearch={this.search} onMoveBook={this.moveBook}/>
+          <SearchBooks allbooks={this.state.allBooks} shelfs={this.state.shelfs} query={query} onSearch={this.search} onMoveBook={this.moveBook}/>
         )} />
         <Route exact path="/" render={() =>  (
           <MyReads shelfs={this.state.shelfs} onMoveBook={this.moveBook}/>

@@ -5,10 +5,11 @@ import ListBooks from './ListBooks'
 
 class SearchBooks extends Component {
   static propTypes = {
-    books: PropTypes.array.isRequired,
+    allbooks: PropTypes.array.isRequired,
     query: PropTypes.string.isRequired,
     onSearch: PropTypes.func.isRequired,
-    onMoveBook: PropTypes.func.isRequired
+    onMoveBook: PropTypes.func.isRequired,
+    shelfs: PropTypes.object.isRequired
   }
   
   render() {
@@ -35,7 +36,7 @@ class SearchBooks extends Component {
               </div>
             </div>
             <div className="search-books-results">
-              <ListBooks books={this.props.books} onMoveBook={this.props.onMoveBook} />
+              <ListBooks books={this.props.allbooks} onMoveBook={this.props.onMoveBook} shelfs={this.props.shelfs}/>
             </div>
           </div>
     )
